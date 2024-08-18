@@ -7,6 +7,50 @@
 		"abi": [
 			{
 				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "doctorAddress",
+						"type": "address"
+					}
+				],
+				"name": "DoctorAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "patientAddress",
+						"type": "address"
+					}
+				],
+				"name": "PatientAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "PatientRecordAdded",
+				"type": "event"
+			},
+			{
+				"inputs": [],
 				"name": "PatientHealthRecordCount",
 				"outputs": [
 					{
@@ -19,16 +63,18 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "addDoctor",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_patientID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_patientName",
-						"type": "string"
+						"internalType": "address",
+						"name": "_patientId",
+						"type": "address"
 					}
 				],
 				"name": "addPatient",
@@ -40,7 +86,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "patientID",
+						"name": "patientRecordId",
 						"type": "uint256"
 					},
 					{
@@ -52,6 +98,11 @@
 						"internalType": "string",
 						"name": "prescription",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "id",
+						"type": "address"
 					}
 				],
 				"name": "addPatientRecord",
@@ -67,10 +118,78 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "patientID",
+						"type": "uint256"
+					}
+				],
 				"name": "displayPatientRecord",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "patientRecordId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "id",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "diagnosis",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "prescription",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timestamp",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct PatientHealthRecord.PatientRecord[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "doctors",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "id",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "doctorId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "doctorName",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -83,17 +202,108 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_patientId",
+						"type": "address"
+					}
+				],
+				"name": "getPatientExists",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSenderRole",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "patientHealthRecords",
+				"name": "patientRecords",
 				"outputs": [
 					{
-						"internalType": "contract PatientHealthRecord",
+						"internalType": "uint256",
+						"name": "patientRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "id",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "diagnosis",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "prescription",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "",
 						"type": "address"
+					}
+				],
+				"name": "patients",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "id",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "patientID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "patientName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "age",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -128,11 +338,11 @@
 	},
 	"sources": {
 		"EHR.sol": {
-			"keccak256": "0x3b15d163da285cbdeaebc36ddbd8d27f6e8fab982999d78dd7e761d37c08b7e2",
+			"keccak256": "0x5f8b9e0861d6b1815aa262581bc4bcd717b6f83c8d7271f1a9e25d940e1758d1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fbc318c33cfca1bc693cd76988d09b4d4fe4603a1c014e3109855648428253bd",
-				"dweb:/ipfs/QmeMuedz9FgPY1L4WUGSn6gPuNjRdcwV4NVwbBEU7ReJ9G"
+				"bzz-raw://1a1bcfd5574f39bfd2c27e929f4158509a59ddcc11852c8a5f463e047b96f809",
+				"dweb:/ipfs/QmSKqAx28gxbNLFpJ8NcALMwAXf4CMXjEKfLGZQ98sk8vZ"
 			]
 		}
 	},
